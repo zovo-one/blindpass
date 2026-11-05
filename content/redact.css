@@ -1,0 +1,199 @@
+/* ============================================================================
+ * redact.css — BlindPass content-script stylesheet (ships verbatim).
+ * ----------------------------------------------------------------------------
+ * The workhorse. Structural blur (name / photo / school+grad-year) is pure CSS
+ * gated on <html> classes that redact.ts applies synchronously at
+ * document_start, so a candidate card is blurred THE INSTANT it mounts — zero
+ * JS race, no identity flash.
+ *
+ * Class contract (kept in sync with src/shared/config.ts CLS):
+ *   html.zovo-bp-on              master + current-site active
+ *   html.zovo-bp-name/-photo/-edu/-pronouns   per-field blur enabled
+ *   html.zovo-bp-site-<site>     which selector pack to activate
+ *   html.zovo-bp-style-<style>   blur | pixelate | solid
+ *   --zovo-bp-amt                blur radius (px), set inline by redact.ts
+ *   .zovo-bp-card                a tagged candidate card (JS)
+ *   .zovo-bp-header              the region over-blurred in strict fallback (JS)
+ *   .zovo-bp-strict (on a card)  field selectors missed -> over-blur the header
+ *   .zovo-bp-reveal (on a card)  per-card one-click reveal (JS, ephemeral)
+ *   .zovo-bp-tok                 a masked pronoun token (JS-wrapped span)
+ *   .zovo-bp-eye                 the injected reveal eye-button (JS)
+ *
+ * REVEAL WINS: every blur target carries `:not(.zovo-bp-reveal *)`, so any node
+ * inside a revealed card is excluded from blur outright — no specificity war,
+ * and it never affects first paint (a freshly mounted card is never revealed).
+ * ==========================================================================*/
+
+:root {
+  --zovo-bp-amt: 8px;
+}
+
+/* ---- LinkedIn Recruiter (linkedin.com/talent) ----------------------------- */
+
+html.zovo-bp-name.zovo-bp-site-linkedin
+  :is(a[href*="/talent/profile/"], [data-test-row-lockup-full-name],
+      .artdeco-entity-lockup__title, .profile-list-item__link):not(.zovo-bp-reveal *) {
+  filter: blur(var(--zovo-bp-amt, 8px)) !important;
+}
+html.zovo-bp-photo.zovo-bp-site-linkedin
+  :is(img.artdeco-entity-lockup__image, .presence-entity__image,
+      img[src*="profile-displayphoto"],
+      figure.artdeco-entity-lockup__image img):not(.zovo-bp-reveal *) {
+  filter: blur(var(--zovo-bp-amt, 8px)) !important;
+}
+html.zovo-bp-edu.zovo-bp-site-linkedin
+  :is([data-test-education-entity], section[data-test-education],
+      .education__list, [data-test-row-lockup-education]):not(.zovo-bp-reveal *) {
+  filter: blur(var(--zovo-bp-amt, 8px)) !important;
+}
+
+/* ---- Lever (hire.lever.co) ------------------------------------------------- */
+
+html.zovo-bp-name.zovo-bp-site-lever
+  :is([data-qa="candidate-name"], .candidate-name,
+      a.candidate-link .name, .candidate .name):not(.zovo-bp-reveal *) {
+  filter: blur(var(--zovo-bp-amt, 8px)) !important;
+}
+html.zovo-bp-photo.zovo-bp-site-lever
+  :is(.candidate-avatar img, img.avatar, .avatar-image img,
+      .candidate-photo img):not(.zovo-bp-reveal *) {
+  filter: blur(var(--zovo-bp-amt, 8px)) !important;
+}
+html.zovo-bp-edu.zovo-bp-site-lever
+  :is([data-qa="education"], .candidate-education, .education,
+      .candidate-school):not(.zovo-bp-reveal *) {
+  filter: blur(var(--zovo-bp-amt, 8px)) !important;
+}
+
+/* ---- Indeed employer/resume (employers/resumes.indeed.com) ---------------- */
+
+html.zovo-bp-name.zovo-bp-site-indeed
+  :is([data-testid="resume-name"], .rezemp-ResumeCard-name,
+      [itemprop="name"], h2.resume-name):not(.zovo-bp-reveal *) {
+  filter: blur(var(--zovo-bp-amt, 8px)) !important;
+}
+html.zovo-bp-photo.zovo-bp-site-indeed
+  :is([data-testid="avatar"] img, .rezemp-Avatar img, .avatar img,
+      img.resume-avatar):not(.zovo-bp-reveal *) {
+  filter: blur(var(--zovo-bp-amt, 8px)) !important;
+}
+html.zovo-bp-edu.zovo-bp-site-indeed
+  :is([data-testid="education"], .rezemp-education, .education-section,
+      .resume-education):not(.zovo-bp-reveal *) {
+  filter: blur(var(--zovo-bp-amt, 8px)) !important;
+}
+
+/* ---- pronoun tokens (Pro; JS-wrapped, site-agnostic) ---------------------- */
+
+html.zovo-bp-pronouns .zovo-bp-tok:not(.zovo-bp-reveal *) {
+  filter: blur(var(--zovo-bp-amt, 8px)) !important;
+}
+
+/* ---- strict fail-safe: card detected but name AND photo selectors missed --
+ * Over-blur the header region. Failing toward MORE redaction is correct for a
+ * bias tool — a leaked name is the worst outcome; over-blur is merely fixed by
+ * a reveal click. */
+html.zovo-bp-on .zovo-bp-card.zovo-bp-strict .zovo-bp-header:not(.zovo-bp-reveal *) {
+  filter: blur(calc(var(--zovo-bp-amt, 8px) + 2px)) !important;
+}
+
+/* ---- style: PIXELATE (Pro) — blockier obscuration than smooth blur ---------
+ * Pure-CSS approximation (no SVG filters): a tighter blur + high contrast reads
+ * as pixelation. Higher specificity than the base blur rules (+1 style class),
+ * so it overrides them for the same nodes. */
+html.zovo-bp-style-pixelate.zovo-bp-name.zovo-bp-site-linkedin
+  :is(a[href*="/talent/profile/"], [data-test-row-lockup-full-name], .artdeco-entity-lockup__title, .profile-list-item__link):not(.zovo-bp-reveal *),
+html.zovo-bp-style-pixelate.zovo-bp-name.zovo-bp-site-lever
+  :is([data-qa="candidate-name"], .candidate-name, a.candidate-link .name, .candidate .name):not(.zovo-bp-reveal *),
+html.zovo-bp-style-pixelate.zovo-bp-name.zovo-bp-site-indeed
+  :is([data-testid="resume-name"], .rezemp-ResumeCard-name, [itemprop="name"], h2.resume-name):not(.zovo-bp-reveal *),
+html.zovo-bp-style-pixelate.zovo-bp-photo.zovo-bp-site-linkedin
+  :is(img.artdeco-entity-lockup__image, .presence-entity__image, img[src*="profile-displayphoto"], figure.artdeco-entity-lockup__image img):not(.zovo-bp-reveal *),
+html.zovo-bp-style-pixelate.zovo-bp-photo.zovo-bp-site-lever
+  :is(.candidate-avatar img, img.avatar, .avatar-image img, .candidate-photo img):not(.zovo-bp-reveal *),
+html.zovo-bp-style-pixelate.zovo-bp-photo.zovo-bp-site-indeed
+  :is([data-testid="avatar"] img, .rezemp-Avatar img, .avatar img, img.resume-avatar):not(.zovo-bp-reveal *),
+html.zovo-bp-style-pixelate.zovo-bp-pronouns .zovo-bp-tok:not(.zovo-bp-reveal *) {
+  image-rendering: pixelated !important;
+  filter: blur(calc(var(--zovo-bp-amt, 8px) * 0.55)) contrast(1.7) saturate(1.15) !important;
+}
+
+/* ---- style: SOLID (Pro) — a flat grey bar over the signal ------------------
+ * Text nodes become a solid grey pill (transparent text on a grey ground);
+ * photos are blacked out. Overrides base blur via the extra style class. */
+html.zovo-bp-style-solid.zovo-bp-name.zovo-bp-site-linkedin
+  :is(a[href*="/talent/profile/"], [data-test-row-lockup-full-name], .artdeco-entity-lockup__title, .profile-list-item__link):not(.zovo-bp-reveal *),
+html.zovo-bp-style-solid.zovo-bp-name.zovo-bp-site-lever
+  :is([data-qa="candidate-name"], .candidate-name, a.candidate-link .name, .candidate .name):not(.zovo-bp-reveal *),
+html.zovo-bp-style-solid.zovo-bp-name.zovo-bp-site-indeed
+  :is([data-testid="resume-name"], .rezemp-ResumeCard-name, [itemprop="name"], h2.resume-name):not(.zovo-bp-reveal *),
+html.zovo-bp-style-solid.zovo-bp-edu.zovo-bp-site-linkedin
+  :is([data-test-education-entity], section[data-test-education], .education__list, [data-test-row-lockup-education]):not(.zovo-bp-reveal *),
+html.zovo-bp-style-solid.zovo-bp-edu.zovo-bp-site-lever
+  :is([data-qa="education"], .candidate-education, .education, .candidate-school):not(.zovo-bp-reveal *),
+html.zovo-bp-style-solid.zovo-bp-edu.zovo-bp-site-indeed
+  :is([data-testid="education"], .rezemp-education, .education-section, .resume-education):not(.zovo-bp-reveal *),
+html.zovo-bp-style-solid.zovo-bp-pronouns .zovo-bp-tok:not(.zovo-bp-reveal *) {
+  color: transparent !important;
+  background-color: #64748b !important;
+  border-radius: 4px !important;
+  filter: none !important;
+}
+html.zovo-bp-style-solid.zovo-bp-photo.zovo-bp-site-linkedin
+  :is(img.artdeco-entity-lockup__image, .presence-entity__image, img[src*="profile-displayphoto"], figure.artdeco-entity-lockup__image img):not(.zovo-bp-reveal *),
+html.zovo-bp-style-solid.zovo-bp-photo.zovo-bp-site-lever
+  :is(.candidate-avatar img, img.avatar, .avatar-image img, .candidate-photo img):not(.zovo-bp-reveal *),
+html.zovo-bp-style-solid.zovo-bp-photo.zovo-bp-site-indeed
+  :is([data-testid="avatar"] img, .rezemp-Avatar img, .avatar img, img.resume-avatar):not(.zovo-bp-reveal *) {
+  filter: brightness(0) grayscale(1) !important;
+  background-color: #64748b !important;
+}
+
+/* ---- per-card reveal eye-button ------------------------------------------- */
+
+.zovo-bp-card {
+  position: relative;
+}
+.zovo-bp-eye {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  z-index: 2147483000;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  margin: 0;
+  border: 1px solid rgba(15, 23, 42, 0.15);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.94);
+  color: #334155;
+  line-height: 0;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.2);
+  -webkit-appearance: none;
+  appearance: none;
+  filter: none !important; /* the control itself is never blurred */
+  transition: transform 0.12s ease, background 0.12s ease, color 0.12s ease;
+}
+.zovo-bp-eye:hover {
+  background: #ffffff;
+  transform: scale(1.08);
+}
+.zovo-bp-eye:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+.zovo-bp-eye[aria-pressed="true"] {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zovo-bp-eye {
+    transition: none;
+  }
+}

@@ -1,0 +1,56 @@
+/* ============================================================================
+ * zovo-sidebar.css — the Zovo conversion sidebar for the options rail.
+ * Adapted from engine/5.../monetization/zovo-sidebar.css to BlindPass tokens.
+ * Uses zovo-base.css --zovo-* tokens. The Pro card is the ONE purple surface
+ * (--zovo-primary #6C5CE7); the Get Pro button stays gold (.zovo-btn--pro).
+ * Sells ONLY this extension's Pro. No sibling cross-sell (CWS §B), no fabricated
+ * ratings/counts, no review solicitation (CWS §A).
+ * ========================================================================== */
+.zovo-sidebar {
+  display: flex; flex-direction: column; gap: var(--zovo-space-4);
+  width: 288px; flex: none;
+}
+.zs-card {
+  background: var(--zovo-bg); border: 1px solid var(--zovo-border);
+  border-radius: var(--zovo-radius-card); padding: var(--zovo-space-5);
+}
+.zs-card--pro {
+  background: linear-gradient(160deg, var(--zovo-primary) 0%, var(--zovo-primary-dark) 100%);
+  border: none; color: #fff; box-shadow: var(--zovo-shadow);
+}
+.zs-card--pro .zs-sub { color: rgba(255, 255, 255, 0.82); }
+.zs-eyebrow {
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.09em;
+  font-weight: 700; opacity: 0.85; margin-bottom: 6px;
+}
+.zs-h { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; margin: 0 0 12px; line-height: 1.3; }
+.zs-stack {
+  list-style: none; margin: 0 0 var(--zovo-space-4); padding: 0;
+  display: flex; flex-direction: column; gap: 8px; font-size: 13px; line-height: 1.4;
+}
+.zs-stack li { padding-left: 22px; position: relative; }
+.zs-stack li::before {
+  content: ""; position: absolute; left: 0; top: 4px; width: 14px; height: 14px;
+  border-radius: 50%; background: rgba(255, 255, 255, 0.22);
+}
+.zs-stack li::after {
+  content: ""; position: absolute; left: 5px; top: 5px; width: 4px; height: 7px;
+  border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg);
+}
+.zs-card--pro .zovo-btn--pro { width: 100%; }
+.zs-sub { font-size: 11.5px; margin: 10px 0 0; text-align: center; opacity: 0.9; line-height: 1.5; }
+.zs-x {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 4px 2px; text-decoration: none; color: var(--zovo-text); font-size: 13px; font-weight: 500;
+}
+.zs-x__go { color: var(--zovo-text-secondary); }
+.zs-x:hover .zs-x__nm { color: var(--zovo-primary); }
+.zs-x:hover .zs-x__go { color: var(--zovo-primary); }
+.zs-x:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--zovo-primary-50); border-radius: 6px; }
+.zs-foot {
+  display: flex; gap: var(--zovo-space-4); justify-content: center;
+  font-size: 11.5px; padding-top: 2px;
+}
+.zs-foot a { color: var(--zovo-text-secondary); text-decoration: none; }
+.zs-foot a:hover { color: var(--zovo-primary); text-decoration: underline; }
+.zs-foot a:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--zovo-primary-50); border-radius: 4px; }

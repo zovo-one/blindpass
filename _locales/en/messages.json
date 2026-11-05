@@ -1,0 +1,292 @@
+{
+  "extName": {
+    "message": "BlindPass — Blind Screening for Recruiters",
+    "description": "Extension name — <=75 chars"
+  },
+  "extDesc": {
+    "message": "Blur candidate name, photo, pronouns and school on LinkedIn Recruiter, Lever and Indeed. Reduce first-pass bias. On-device, private.",
+    "description": "Extension description — <=132 chars"
+  },
+  "popupTitle": {
+    "message": "BlindPass"
+  },
+  "popupTagline": {
+    "message": "Blind screening for recruiters"
+  },
+  "heroLabel": {
+    "message": "Screening this page"
+  },
+  "heroSub": {
+    "message": "Names & photos blur before a card renders."
+  },
+  "masterOn": {
+    "message": "Blind screening on"
+  },
+  "siteNone": {
+    "message": "Open a candidate list on LinkedIn Recruiter, Lever or Indeed"
+  },
+  "demoHeading": {
+    "message": "Live demo · no recruiter site needed"
+  },
+  "demoHint": {
+    "message": "This is exactly what BlindPass does on LinkedIn Recruiter, Lever & Indeed. Use the toggle above to blur every candidate; click an eye to reveal one."
+  },
+  "fieldsHeading": {
+    "message": "What's blurred"
+  },
+  "fieldName": {
+    "message": "Name"
+  },
+  "fieldNameNote": {
+    "message": "The single strongest bias signal"
+  },
+  "fieldPhoto": {
+    "message": "Photo"
+  },
+  "fieldPhotoNote": {
+    "message": "Face, apparent age and ethnicity"
+  },
+  "fieldPronouns": {
+    "message": "Pronouns"
+  },
+  "fieldPronounsNote": {
+    "message": "he/him · she/her gendered wording"
+  },
+  "fieldEdu": {
+    "message": "School & grad year"
+  },
+  "fieldEduNote": {
+    "message": "Prestige and age proxies"
+  },
+  "sitesHeading": {
+    "message": "Active on"
+  },
+  "upsellTitle": {
+    "message": "Complete the bias panel"
+  },
+  "upsellPronouns": {
+    "message": "Blur gender-coded pronouns"
+  },
+  "upsellEdu": {
+    "message": "Blur school & graduation year"
+  },
+  "upsellExtras": {
+    "message": "Blur styles, keyboard shortcut & per-site control"
+  },
+  "upgradeCta": {
+    "message": "Unlock Pro — $$99 lifetime"
+  },
+  "trustLine": {
+    "message": "Nothing leaves your device"
+  },
+  "moreTools": {
+    "message": "Browse zovo.one"
+  },
+  "getPro": {
+    "message": "Get Pro"
+  },
+  "optTitle": {
+    "message": "BlindPass Settings"
+  },
+  "optSub": {
+    "message": "Blind first-pass screening on LinkedIn Recruiter, Lever & Indeed."
+  },
+  "secGeneral": {
+    "message": "Appearance"
+  },
+  "theme": {
+    "message": "Theme"
+  },
+  "themeNote": {
+    "message": "How BlindPass looks. System follows your OS."
+  },
+  "themeSystem": {
+    "message": "System"
+  },
+  "themeLight": {
+    "message": "Light"
+  },
+  "themeDark": {
+    "message": "Dark"
+  },
+  "secBlur": {
+    "message": "Blur style & intensity"
+  },
+  "unlock": {
+    "message": "Unlock with Pro"
+  },
+  "blurStyle": {
+    "message": "Style"
+  },
+  "blurStyleNote": {
+    "message": "How masked fields are obscured."
+  },
+  "styleBlur": {
+    "message": "Blur"
+  },
+  "stylePixelate": {
+    "message": "Pixelate"
+  },
+  "styleSolid": {
+    "message": "Solid bar"
+  },
+  "intensity": {
+    "message": "Intensity"
+  },
+  "previewCap": {
+    "message": "Live preview — this is how a candidate card is masked."
+  },
+  "secShortcut": {
+    "message": "Keyboard shortcut"
+  },
+  "toggleShortcut": {
+    "message": "Toggle blur without opening the popup"
+  },
+  "shortcutNote": {
+    "message": "Set or change the shortcut in Chrome."
+  },
+  "changeShortcut": {
+    "message": "Change"
+  },
+  "secScorecard": {
+    "message": "Structured-screening scorecard"
+  },
+  "scorecardNote": {
+    "message": "Skills-only notes for a fair, structured pass. Stored on this device — never uploaded."
+  },
+  "copy": {
+    "message": "Copy"
+  },
+  "clear": {
+    "message": "Clear"
+  },
+  "secSync": {
+    "message": "Sync across devices"
+  },
+  "syncNoteFree": {
+    "message": "On Pro, your ~300-byte config syncs automatically across your signed-in Chrome profiles."
+  },
+  "secProtection": {
+    "message": "Fail-safe protection"
+  },
+  "strictNote": {
+    "message": "Strict mode is on: if a card is detected but a field can't be located, BlindPass blurs the whole card header rather than risk showing a name. It over-blurs, never leaks."
+  },
+  "upgradeHeading": {
+    "message": "Unlock the full bias panel"
+  },
+  "upgradeSub": {
+    "message": "Pronouns, school & grad-year, blur styles, shortcut, per-site control, scorecard and sync — one payment, lifetime."
+  },
+  "privacy": {
+    "message": "Privacy"
+  },
+  "support": {
+    "message": "Support"
+  },
+  "obKicker": {
+    "message": "Blind screening for recruiters"
+  },
+  "obTitle": {
+    "message": "Judge candidates on their skills,"
+  },
+  "obLede": {
+    "message": "BlindPass blurs candidate name and photo the instant a card renders on LinkedIn Recruiter, Lever and Indeed — so your first pass is genuinely blind. Nothing ever leaves your computer."
+  },
+  "obChipFree": {
+    "message": "Free forever on name & photo"
+  },
+  "obChipPrivacy": {
+    "message": "Zero data leaves your device"
+  },
+  "obDemoTitle": {
+    "message": "Try it right here"
+  },
+  "obDemoSub": {
+    "message": "A mock candidate list — no recruiter site needed. Toggle blind mode and watch identity disappear before you read a word."
+  },
+  "obBlindOn": {
+    "message": "Blind mode on"
+  },
+  "obDemoHint": {
+    "message": "Skills stay sharp. Click the eye to reveal one candidate when you're ready to shortlist — reveals never persist, so a reload re-blinds everyone."
+  },
+  "obStep1": {
+    "message": "Blurs before first paint"
+  },
+  "obStep1Note": {
+    "message": "Name and photo are masked by CSS the instant a candidate card mounts — there's no flash of identity to un-see."
+  },
+  "obStep2": {
+    "message": "One-click reveal"
+  },
+  "obStep2Note": {
+    "message": "Decided to shortlist? Click the eye on that card to reveal just that one. Everyone else stays blind."
+  },
+  "obStep3": {
+    "message": "Fails safe, never leaks"
+  },
+  "obStep3Note": {
+    "message": "If a page redesign hides a field, BlindPass over-blurs the card header rather than risk exposing a name."
+  },
+  "obPlansTitle": {
+    "message": "What's free, what's Pro"
+  },
+  "obFree": {
+    "message": "Free forever"
+  },
+  "obFree1": {
+    "message": "Blur name & photo on all three sites"
+  },
+  "obFree2": {
+    "message": "Master toggle"
+  },
+  "obFree3": {
+    "message": "One-click per-candidate reveal"
+  },
+  "obPro1": {
+    "message": "Blur gender-coded pronouns"
+  },
+  "obPro2": {
+    "message": "Blur school & graduation year"
+  },
+  "obPro3": {
+    "message": "Blur styles, intensity & keyboard shortcut"
+  },
+  "obPro4": {
+    "message": "Per-site control, scorecard & sync"
+  },
+  "obCtaTitle": {
+    "message": "You're set. Go screen blind."
+  },
+  "obCtaSub": {
+    "message": "Open a candidate list on LinkedIn Recruiter, Lever or Indeed — names and photos are already blurred. Manage everything from the toolbar icon."
+  },
+  "obGetStarted": {
+    "message": "Start screening"
+  },
+  "obSeePro": {
+    "message": "See Pro"
+  },
+  "obBy": {
+    "message": "Built by Michael Lip · Zovo · support@zovo.one"
+  },
+  "openSettings": {
+    "message": "Open settings"
+  },
+  "toggleMaster": {
+    "message": "Toggle blind screening"
+  },
+  "blurName": {
+    "message": "Toggle name blur"
+  },
+  "blurPhoto": {
+    "message": "Toggle photo blur"
+  },
+  "blurPronouns": {
+    "message": "Toggle pronoun blur"
+  },
+  "blurEdu": {
+    "message": "Toggle school and grad-year blur"
+  }
+}

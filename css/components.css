@@ -1,0 +1,142 @@
+/* ============================================================================
+ * components.css — BlindPass-specific components layered on zovo-base.css.
+ * Shared by popup + options. Link order: zovo-base.css -> components.css -> page.
+ * Everything here obeys the Zovo taste guide: 8px grid, one accent, hairline
+ * borders, soft shadow on the hero only, focus-visible rings on every control.
+ * ========================================================================== */
+
+/* ---- Brand mark ----------------------------------------------------------- */
+.bp-logo {
+  width: 30px; height: 30px; flex: 0 0 auto;
+  border-radius: 9px;
+  display: grid; place-items: center;
+  background: linear-gradient(135deg, var(--zovo-primary), var(--zovo-primary-light));
+  color: #fff;
+}
+.bp-logo svg { width: 18px; height: 18px; display: block; }
+
+.bp-iconbtn {
+  display: inline-grid; place-items: center;
+  width: 34px; height: 34px; flex: 0 0 auto;
+  border: 1px solid transparent; border-radius: var(--zovo-radius-btn);
+  background: transparent; color: var(--zovo-text-secondary);
+  cursor: pointer; transition: background var(--zovo-transition), color var(--zovo-transition);
+}
+.bp-iconbtn svg { width: 18px; height: 18px; }
+.bp-iconbtn:hover { background: var(--zovo-surface-2); color: var(--zovo-text); }
+.bp-iconbtn:focus-visible {
+  outline: none; box-shadow: 0 0 0 2px var(--zovo-bg), 0 0 0 4px var(--zovo-primary);
+}
+
+/* ---- Accessible switch (role="switch") ------------------------------------ */
+.bp-switch {
+  position: relative; flex: 0 0 auto;
+  width: 42px; height: 24px; padding: 0; margin: 0;
+  border: 1px solid var(--zovo-border); border-radius: 999px;
+  background: var(--zovo-surface-2); cursor: pointer;
+  transition: background var(--zovo-transition), border-color var(--zovo-transition);
+}
+.bp-switch::after {
+  content: ''; position: absolute; top: 2px; left: 2px;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: #fff; box-shadow: var(--zovo-shadow-sm);
+  transition: transform var(--zovo-transition);
+}
+.bp-switch[aria-checked='true'] { background: var(--zovo-primary); border-color: var(--zovo-primary); }
+.bp-switch[aria-checked='true']::after { transform: translateX(18px); }
+.bp-switch:focus-visible {
+  outline: none; box-shadow: 0 0 0 2px var(--zovo-bg), 0 0 0 4px var(--zovo-primary);
+}
+.bp-switch[disabled] { opacity: 0.5; cursor: not-allowed; }
+
+/* ---- Control row (a labelled setting with a trailing control) ------------- */
+.bp-ctl {
+  display: flex; align-items: center; gap: var(--zovo-space-4);
+  min-height: 48px; padding: var(--zovo-space-2) 0;
+}
+.bp-ctl + .bp-ctl { border-top: 1px solid var(--zovo-border); }
+.bp-ctl__main { flex: 1; min-width: 0; }
+.bp-ctl__label {
+  display: flex; align-items: center; gap: 8px;
+  font-size: var(--zovo-fs-body); font-weight: var(--zovo-fw-medium); color: var(--zovo-text);
+}
+.bp-ctl__note {
+  margin-top: 2px; font-size: var(--zovo-fs-caption); color: var(--zovo-text-secondary);
+}
+.bp-ctl__ico { width: 18px; height: 18px; flex: 0 0 auto; color: var(--zovo-text-secondary); }
+
+/* Locked (Pro) rows: hide the switch, show a gold PRO lock that opens paywall. */
+.bp-ctl.is-locked .bp-switch { display: none; }
+.bp-ctl:not(.is-locked) .bp-lock { display: none; }
+.bp-ctl.is-locked .bp-ctl__label { color: var(--zovo-text-secondary); }
+
+.bp-lock {
+  display: inline-flex; align-items: center; gap: 5px; flex: 0 0 auto;
+  padding: 4px 9px; font-family: inherit; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase; line-height: 1.4;
+  color: var(--zovo-pro); background: transparent;
+  border: 1px solid var(--zovo-pro); border-radius: var(--zovo-radius-pill);
+  cursor: pointer; transition: background var(--zovo-transition), color var(--zovo-transition);
+}
+.bp-lock:hover { background: var(--zovo-pro); color: var(--zovo-on-pro); }
+.bp-lock:focus-visible {
+  outline: none; box-shadow: 0 0 0 2px var(--zovo-bg), 0 0 0 4px var(--zovo-pro);
+}
+.bp-lock svg { width: 11px; height: 11px; }
+
+/* ---- Section grouping ----------------------------------------------------- */
+.bp-section + .bp-section { margin-top: var(--zovo-space-6); }
+.bp-group {
+  background: var(--zovo-bg); border: 1px solid var(--zovo-border);
+  border-radius: var(--zovo-radius-card); padding: var(--zovo-space-2) var(--zovo-space-4);
+}
+
+/* ---- Site status pill (which recruiter surface is active) ----------------- */
+.bp-site {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px; border-radius: var(--zovo-radius-pill);
+  background: var(--zovo-surface-2); font-size: var(--zovo-fs-caption);
+  color: var(--zovo-text-secondary);
+}
+.bp-site__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--zovo-text-secondary); flex: 0 0 auto; }
+.bp-site.is-active { color: var(--zovo-text); }
+.bp-site.is-active .bp-site__dot { background: var(--zovo-success); box-shadow: 0 0 0 3px color-mix(in srgb, var(--zovo-success) 20%, transparent); }
+.bp-site b { color: var(--zovo-text); font-weight: var(--zovo-fw-heading); }
+
+/* ---- Upgrade teaser card -------------------------------------------------- */
+.bp-upsell {
+  border: 1px solid color-mix(in srgb, var(--zovo-pro) 35%, var(--zovo-border));
+  border-radius: var(--zovo-radius-card);
+  background: color-mix(in srgb, var(--zovo-pro) 6%, var(--zovo-bg));
+  padding: var(--zovo-space-4) var(--zovo-space-5);
+}
+.bp-upsell__title {
+  display: flex; align-items: center; gap: 8px;
+  font-size: var(--zovo-fs-subheading); font-weight: var(--zovo-fw-heading); color: var(--zovo-text);
+}
+.bp-upsell__list { margin: var(--zovo-space-3) 0; padding: 0; list-style: none;
+  display: flex; flex-direction: column; gap: 6px; }
+.bp-upsell__list li {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: var(--zovo-fs-caption); color: var(--zovo-text-secondary);
+}
+.bp-upsell__list svg { width: 14px; height: 14px; flex: 0 0 auto; color: var(--zovo-pro); margin-top: 1px; }
+
+/* ---- Trial banner (Pro active) -------------------------------------------- */
+.bp-trial {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px; border-radius: var(--zovo-radius-btn);
+  background: color-mix(in srgb, var(--zovo-success) 10%, var(--zovo-bg));
+  border: 1px solid color-mix(in srgb, var(--zovo-success) 25%, transparent);
+  color: var(--zovo-text); font-size: var(--zovo-fs-caption);
+}
+.bp-trial__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--zovo-success); flex: 0 0 auto; }
+
+/* ---- Inline toast (settings-not-saved etc., used sparingly) ---------------- */
+.bp-toast {
+  font-size: var(--zovo-fs-caption); color: var(--zovo-error);
+  min-height: 16px; margin: 0;
+}
+.bp-toast:empty { display: none; }
+
+.bp-hide { display: none !important; }

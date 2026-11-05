@@ -1,0 +1,151 @@
+/* ============================================================================
+ * options.css — BlindPass settings. Centered editorial column on the neutral
+ * surface; one card per section; Pro sections lock cleanly for free users.
+ * ========================================================================== */
+
+body.zovo { background: var(--zovo-surface); }
+.opt-wrap {
+  max-width: 1000px; margin: 0 auto;
+  padding: var(--zovo-space-8) var(--zovo-space-5) var(--zovo-space-7);
+  display: flex; flex-direction: column; gap: var(--zovo-space-5);
+}
+
+/* ---- Two-column shell: settings column + conversion sidebar --------------- */
+.opt-shell {
+  display: flex; align-items: flex-start; gap: var(--zovo-space-6);
+}
+.opt-main {
+  flex: 1 1 auto; min-width: 0;
+  display: flex; flex-direction: column; gap: var(--zovo-space-5);
+}
+.zovo-sidebar { position: sticky; top: var(--zovo-space-6); }
+@media (max-width: 860px) {
+  .opt-shell { flex-direction: column; }
+  .zovo-sidebar { width: 100%; position: static; }
+}
+
+/* header Get Pro (free tier only) */
+.opt-head__pro { flex: 0 0 auto; min-height: 34px; padding: 7px 16px; font-size: var(--zovo-fs-caption); }
+
+/* ---- Header --------------------------------------------------------------- */
+.opt-head { display: flex; align-items: center; gap: var(--zovo-space-4); }
+.opt-head .bp-logo { width: 40px; height: 40px; border-radius: 11px; }
+.opt-head .bp-logo svg { width: 24px; height: 24px; }
+.opt-head__text { flex: 1; min-width: 0; }
+.opt-head__title { margin: 0; font-size: var(--zovo-fs-title); font-weight: 700; letter-spacing: -0.02em; }
+.opt-head__sub { margin: 2px 0 0; font-size: var(--zovo-fs-body); color: var(--zovo-text-secondary); }
+
+/* ---- Card ----------------------------------------------------------------- */
+.opt-card {
+  position: relative; background: var(--zovo-bg);
+  border: 1px solid var(--zovo-border); border-radius: var(--zovo-radius-card);
+  overflow: hidden;
+}
+.opt-card__head {
+  display: flex; align-items: center; gap: var(--zovo-space-3);
+  padding: var(--zovo-space-4) var(--zovo-space-5);
+  border-bottom: 1px solid var(--zovo-border);
+}
+.opt-card__title { margin: 0; flex: 1 1 auto; font-size: var(--zovo-fs-subheading); font-weight: var(--zovo-fw-heading); }
+.opt-card__body { padding: var(--zovo-space-3) var(--zovo-space-5) var(--zovo-space-5); }
+
+/* ---- Rows ----------------------------------------------------------------- */
+.opt-row {
+  display: flex; align-items: center; gap: var(--zovo-space-5);
+  padding: var(--zovo-space-4) 0; flex-wrap: wrap;
+}
+.opt-row + .opt-row { border-top: 1px solid var(--zovo-border); }
+.opt-row__main { flex: 1 1 220px; min-width: 0; }
+.opt-row__label { font-size: var(--zovo-fs-body); font-weight: var(--zovo-fw-medium); color: var(--zovo-text); }
+.opt-row__note { margin: 2px 0 0; font-size: var(--zovo-fs-caption); color: var(--zovo-text-secondary); }
+
+/* ---- Segmented radiogroup ------------------------------------------------- */
+.opt-seg { display: inline-flex; gap: 6px; padding: 4px; border-radius: var(--zovo-radius-btn);
+  background: var(--zovo-surface); border: 1px solid var(--zovo-border); }
+.opt-seg__btn {
+  padding: 8px 14px; min-width: 74px; font: inherit; font-size: var(--zovo-fs-caption);
+  font-weight: var(--zovo-fw-medium); color: var(--zovo-text-secondary);
+  background: transparent; border: 1px solid transparent; border-radius: 6px;
+  cursor: pointer; transition: background var(--zovo-transition), color var(--zovo-transition);
+}
+.opt-seg__btn:hover { color: var(--zovo-text); }
+.opt-seg__btn[aria-checked='true'] {
+  background: var(--zovo-bg); color: var(--zovo-primary); font-weight: var(--zovo-fw-heading);
+  box-shadow: var(--zovo-shadow-sm);
+}
+.opt-seg__btn:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--zovo-bg), 0 0 0 4px var(--zovo-primary); }
+
+/* ---- Range ---------------------------------------------------------------- */
+.opt-range { flex: 1 1 200px; accent-color: var(--zovo-primary); height: 24px; cursor: pointer; }
+.opt-range:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--zovo-bg), 0 0 0 4px var(--zovo-primary); border-radius: 6px; }
+
+/* ---- Live preview --------------------------------------------------------- */
+.opt-preview { margin-top: var(--zovo-space-4); }
+.opt-preview__card {
+  display: flex; align-items: center; gap: var(--zovo-space-4);
+  padding: var(--zovo-space-4); border: 1px solid var(--zovo-border);
+  border-radius: var(--zovo-radius-card); background: var(--zovo-surface);
+}
+.opt-preview__photo {
+  width: 48px; height: 48px; border-radius: 50%; flex: 0 0 auto;
+  background: linear-gradient(135deg, #c7b8f5, #8b7cf0);
+}
+.opt-preview__name { font-size: var(--zovo-fs-subheading); font-weight: var(--zovo-fw-heading); color: var(--zovo-text); }
+.opt-preview__role { margin-top: 2px; font-size: var(--zovo-fs-caption); color: var(--zovo-text-secondary); }
+.opt-preview__cap { margin: var(--zovo-space-3) 0 0; font-size: var(--zovo-fs-caption); color: var(--zovo-text-secondary); }
+
+/* the mask, driven by the style radiogroup + intensity range */
+.opt-preview { --bp-prev-amt: 8px; }
+.opt-preview.is-blur .prev-mask { filter: blur(var(--bp-prev-amt)); }
+.opt-preview.is-pixelate .prev-mask { filter: blur(calc(var(--bp-prev-amt) * 0.5)) contrast(1.7) saturate(0); }
+.opt-preview.is-solid .opt-preview__name {
+  color: transparent; background: #6b7280; border-radius: 5px; user-select: none;
+}
+.opt-preview.is-solid .opt-preview__photo { background: #6b7280; }
+.prev-mask { transition: filter var(--zovo-transition); }
+@media (prefers-reduced-motion: reduce) { .prev-mask { transition: none; } }
+
+/* ---- Keyboard hint -------------------------------------------------------- */
+.opt-kbd {
+  display: inline-grid; place-items: center; min-width: 34px; height: 30px; padding: 0 8px;
+  font-family: var(--zovo-font-mono); font-size: var(--zovo-fs-caption); font-weight: 600;
+  color: var(--zovo-text); background: var(--zovo-surface);
+  border: 1px solid var(--zovo-border); border-bottom-width: 2px; border-radius: 6px;
+}
+
+/* ---- Notes / scorecard ---------------------------------------------------- */
+.opt-notes {
+  width: 100%; margin-top: var(--zovo-space-3); padding: var(--zovo-space-3);
+  font-family: var(--zovo-font); font-size: var(--zovo-fs-body); line-height: 1.6;
+  color: var(--zovo-text); background: var(--zovo-surface);
+  border: 1px solid var(--zovo-border); border-radius: var(--zovo-radius-input); resize: vertical;
+}
+.opt-notes:focus-visible { outline: none; border-color: var(--zovo-primary); box-shadow: 0 0 0 3px var(--zovo-primary-50); }
+.opt-notes__foot { display: flex; align-items: center; justify-content: space-between; gap: var(--zovo-space-3); margin-top: var(--zovo-space-3); }
+.opt-notes__btns { display: flex; gap: var(--zovo-space-2); }
+
+/* ---- Pro lock ------------------------------------------------------------- */
+.opt-card[data-pro] .opt-unlock { display: none; }
+.opt-card[data-pro] [data-pro-badge] { color: var(--zovo-text-secondary); border-color: var(--zovo-border); }
+/* locked state (free tier) */
+.opt-card.is-locked .opt-unlock { display: inline-flex; min-height: 34px; padding: 7px 14px; font-size: var(--zovo-fs-caption); }
+.opt-card.is-locked [data-pro-badge] { color: var(--zovo-pro); border-color: var(--zovo-pro); }
+.opt-card.is-locked .opt-card__body { opacity: 0.5; pointer-events: none; filter: saturate(0.6); }
+/* unlocked state (pro/trial) */
+.opt-card:not(.is-locked)[data-pro] [data-pro-badge] { color: var(--zovo-pro); border-color: var(--zovo-pro); }
+
+/* ---- Upgrade card --------------------------------------------------------- */
+.opt-card--pro { border-color: color-mix(in srgb, var(--zovo-pro) 35%, var(--zovo-border));
+  background: color-mix(in srgb, var(--zovo-pro) 6%, var(--zovo-bg)); }
+.opt-upgrade { display: flex; align-items: center; justify-content: space-between; gap: var(--zovo-space-5); flex-wrap: wrap; }
+.opt-upgrade .zovo-btn { flex: 0 0 auto; }
+
+/* ---- Footer --------------------------------------------------------------- */
+.opt-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--zovo-space-4);
+  padding-top: var(--zovo-space-4); border-top: 1px solid var(--zovo-border);
+  font-size: var(--zovo-fs-caption); color: var(--zovo-text-secondary); flex-wrap: wrap;
+}
+.opt-foot__links { display: inline-flex; align-items: center; gap: 8px; }
+.opt-foot__links a { color: var(--zovo-text-secondary); text-decoration: none; }
+.opt-foot__links a:hover { color: var(--zovo-primary); text-decoration: underline; }

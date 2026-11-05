@@ -1,0 +1,124 @@
+/* ============================================================================
+ * popup.css — BlindPass popup. 360px, one hero (the live blur count + master
+ * switch), calm sections below. Link after zovo-base.css + components.css.
+ * ========================================================================== */
+
+body.zovo { width: var(--zovo-popup-w); }
+.bp-popup { display: flex; flex-direction: column; }
+
+/* ---- Header --------------------------------------------------------------- */
+.bp-head {
+  display: flex; align-items: center; gap: var(--zovo-space-3);
+  padding: var(--zovo-space-4) var(--zovo-space-5);
+  border-bottom: 1px solid var(--zovo-border);
+}
+.bp-head__title {
+  flex: 1; min-width: 0;
+  font-size: var(--zovo-fs-subheading); font-weight: var(--zovo-fw-heading);
+  letter-spacing: -0.01em;
+}
+.bp-head__title span { display: block; font-size: 11px; font-weight: var(--zovo-fw-medium);
+  letter-spacing: 0; color: var(--zovo-text-secondary); }
+
+/* ---- Body ----------------------------------------------------------------- */
+.bp-body { padding: var(--zovo-space-5); display: flex; flex-direction: column; gap: var(--zovo-space-5); }
+
+/* ---- Hero: the ONE thing the eye lands on --------------------------------- */
+.bp-hero {
+  text-align: center;
+  padding: var(--zovo-space-6) var(--zovo-space-5) var(--zovo-space-5);
+  background: var(--zovo-bg); border: 1px solid var(--zovo-border);
+  border-radius: var(--zovo-radius-card); box-shadow: var(--zovo-shadow);
+}
+.bp-hero__num {
+  font-size: var(--zovo-fs-hero); font-weight: 700; letter-spacing: -0.02em;
+  line-height: 1.02; color: var(--zovo-primary);
+  font-variant-numeric: tabular-nums;
+}
+.bp-hero.is-off .bp-hero__num { color: var(--zovo-text-secondary); }
+.bp-hero__word { font-size: 30px; }
+.bp-hero__label {
+  margin-top: var(--zovo-space-2);
+  font-size: 11px; font-weight: var(--zovo-fw-heading);
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--zovo-text-secondary);
+}
+.bp-hero__sub { margin-top: var(--zovo-space-3); font-size: var(--zovo-fs-caption);
+  color: var(--zovo-text-secondary); min-height: 16px; }
+
+/* Master switch sits inside the hero, the primary action */
+.bp-master {
+  display: flex; align-items: center; justify-content: center; gap: var(--zovo-space-3);
+  margin-top: var(--zovo-space-5); padding-top: var(--zovo-space-4);
+  border-top: 1px solid var(--zovo-border);
+}
+.bp-master__label { font-size: var(--zovo-fs-body); font-weight: var(--zovo-fw-medium); }
+
+/* ---- Section label -------------------------------------------------------- */
+.bp-eyebrow {
+  margin: 0 0 var(--zovo-space-2); padding: 0 var(--zovo-space-1);
+  font-size: 11px; font-weight: var(--zovo-fw-heading);
+  letter-spacing: 0.07em; text-transform: uppercase; color: var(--zovo-text-secondary);
+}
+
+/* ---- Footer --------------------------------------------------------------- */
+.bp-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--zovo-space-3);
+  padding: var(--zovo-space-3) var(--zovo-space-5);
+  border-top: 1px solid var(--zovo-border);
+  font-size: var(--zovo-fs-caption); color: var(--zovo-text-secondary);
+}
+.bp-foot a { color: var(--zovo-text-secondary); text-decoration: none; }
+.bp-foot a:hover { color: var(--zovo-primary); text-decoration: underline; }
+.bp-foot__trust { display: inline-flex; align-items: center; gap: 5px; }
+.bp-foot__trust svg { width: 13px; height: 13px; color: var(--zovo-success); }
+
+/* Dim the whole controls region when master is off (still readable, clearly idle) */
+.bp-body.is-off .bp-section { opacity: 0.55; }
+.bp-body.is-off .bp-demo { opacity: 0.55; }
+.bp-body.is-off .bp-hero { opacity: 1; }
+
+/* ---- In-popup live demo --------------------------------------------------- *
+ * A working mock candidate list so the core blur/reveal function is visible in
+ * the popup itself, with no gated recruiter site needed. Driven by popup-demo.js.
+ * ------------------------------------------------------------------------- */
+.bp-demo__list { list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: var(--zovo-space-2); }
+.bp-demo__cand {
+  display: flex; align-items: center; gap: var(--zovo-space-3);
+  padding: var(--zovo-space-2) var(--zovo-space-3);
+  background: var(--zovo-bg); border: 1px solid var(--zovo-border);
+  border-radius: 10px;
+}
+.bp-demo__ph {
+  width: 34px; height: 34px; border-radius: 50%; flex: none;
+  background: radial-gradient(120% 120% at 30% 25%, var(--bp-c, #7c6cf0), #0d1220);
+  transition: filter 0.3s;
+}
+.bp-demo__meta { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.bp-demo__nm {
+  font-size: var(--zovo-fs-body); font-weight: var(--zovo-fw-heading);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: filter 0.3s;
+}
+.bp-demo__rl {
+  font-size: var(--zovo-fs-caption); color: var(--zovo-text-secondary);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.bp-demo__eye {
+  flex: none; width: 30px; height: 30px; border-radius: 8px;
+  border: 1px solid var(--zovo-border); background: transparent;
+  color: var(--zovo-text-secondary);
+  display: grid; place-items: center; cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.bp-demo__eye:hover,
+.bp-demo__eye[aria-pressed="true"] { color: var(--zovo-primary); border-color: var(--zovo-primary); }
+.bp-demo__eye svg { width: 15px; height: 15px; }
+.bp-demo__list.is-blind .bp-demo__cand:not(.is-revealed) .bp-demo__ph { filter: blur(7px) saturate(0.7); }
+.bp-demo__list.is-blind .bp-demo__cand:not(.is-revealed) .bp-demo__nm {
+  filter: blur(5px); color: var(--zovo-text-secondary); user-select: none;
+}
+.bp-demo__hint { margin-top: var(--zovo-space-3); font-size: var(--zovo-fs-caption);
+  color: var(--zovo-text-secondary); }
+@media (prefers-reduced-motion: reduce) {
+  .bp-demo__ph, .bp-demo__nm, .bp-demo__eye { transition: none; }
+}
